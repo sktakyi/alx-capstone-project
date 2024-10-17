@@ -31,7 +31,7 @@ class Product(models.Model):
 # Supplier Model
 class Supplier(models.Model):
     name = models.CharField(max_length=255)
-    contact_email = models.EmailField()
+    contact_email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20)
     contact_address = models.CharField(max_length=255)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -43,7 +43,7 @@ class Supplier(models.Model):
 
 # Inventory Model
 class Inventory(models.Model):
-    product_name = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
@@ -80,7 +80,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     status = models.CharField(max_length=1, choices=ORDER_STATUS_CHOICES, default='P')
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     order_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

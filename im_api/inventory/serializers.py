@@ -33,6 +33,8 @@ class InventorySerializer(serializers.ModelSerializer):
         model = Inventory
         fields = '__all__'
 
+
+# Inventory Log Serializer
 class InventoryLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = InventoryLog
@@ -49,7 +51,8 @@ class CustomerSerializer(serializers.ModelSerializer):
 # Order Serializer
 class OrderSerializer(serializers.ModelSerializer):
     customer = serializers.StringRelatedField()  # To display customer name
-    products = ProductSerializer(many=True, read_only=True)
+    products = serializers.PrimaryKeyRelatedField(many=True, queryset=Product.objects.all())
+
 
     class Meta:
         model = Order
