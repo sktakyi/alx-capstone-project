@@ -27,7 +27,7 @@ class SupplierSerializer(serializers.ModelSerializer):
 
 # Inventory Serializer
 class InventorySerializer(serializers.ModelSerializer):
-    product_name = serializers.StringRelatedField()  # To display product name
+    product = serializers.StringRelatedField()  # To display product
 
     class Meta:
         model = Inventory
