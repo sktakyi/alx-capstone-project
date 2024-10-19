@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions
+from rest_framework import generics, viewsets, permissions
 from django.utils import timezone
 from .models import (
     Category, Product, Supplier,
@@ -10,8 +10,8 @@ from .serializers import (
 )
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework import permissions
-
+from .filters import InventoryFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 # Category CRUD
@@ -82,6 +82,14 @@ class InventoryViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class InventoryLevelView(generics.ListAPIView):
+    queryset = Inventory.objects.all()
+    serializer_class = InventorySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = InventoryFilter
+
 
 # InventoryLog for tracking changes
 class InventoryLogViewSet(viewsets.ReadOnlyModelViewSet):
