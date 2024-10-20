@@ -84,6 +84,7 @@ class InventoryViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+# Inventory filter
 class InventoryLevelView(generics.ListAPIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
@@ -111,3 +112,14 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         # Write permissions are only allowed to the owner of the inventory
         return obj.updated_by == request.user
+
+
+# Overriding the create method to handle custom save logic
+def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        # Save the validated data
+        serializer.save()
+        
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

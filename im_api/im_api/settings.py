@@ -86,7 +86,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=2),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
@@ -129,9 +129,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'im_api',
-        'USER': 'im_api_db_admin',
+        'USER': 'admin_im_api',
         'PASSWORD': '0558218264',
-        'HOST': 'localhost',  # Or the IP address where your DB is hosted
+        'HOST': 'localhost',
         'PORT': '5432',       # Default PostgreSQL port
     }
 }

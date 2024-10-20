@@ -43,10 +43,13 @@ class Supplier(models.Model):
 
 # Inventory Model
 class Inventory(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)  # Correct field name
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.product.name} - {self.quantity}"
     
 
 # Inventory Log Model
@@ -55,6 +58,9 @@ class InventoryLog(models.Model):
     change_quantity = models.IntegerField()  # Positive for restock, negative for sales
     updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
 
 # Customer Model

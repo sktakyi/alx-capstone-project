@@ -11,8 +11,8 @@ router.register(r'products', ProductViewSet)
 router.register(r'suppliers', SupplierViewSet)
 router.register(r'customers', CustomerViewSet)
 router.register(r'orders', OrderViewSet)
-router.register(r'inventory', InventoryViewSet)
-router.register(r'inventory-log', InventoryLogViewSet)
+router.register(r'inventories', InventoryViewSet)
+router.register(r'inventory-logs', InventoryLogViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
