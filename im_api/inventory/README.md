@@ -32,7 +32,7 @@
   "quantity": "100",
   "price": "10"
 }
-
+http://127.0.0.1:8000/api/products/3/
 
 ## Suppliers:
 - GET /api/suppliers/
